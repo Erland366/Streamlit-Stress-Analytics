@@ -1,5 +1,6 @@
 import streamlit as st
 from multipage import save, MultiPage, start_app, clear_cache
+import pandas as pd
 # from src.page.hranalytics import hranalytics
 # from src.page.hranalyticsgraph import hranalyticsgraph
 # from src.page.model import model
@@ -15,8 +16,9 @@ def main():
             'About': "# This is a header. This is an *extremely* cool app!"
         }
     )
-    st.text("Hello World")
-
     start_app()
+
+    logs = pd.read_csv("./res/logs.csv")
+    st.dataframe(logs.tail(10))
 if __name__ == "__main__":
     main()
