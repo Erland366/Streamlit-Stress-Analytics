@@ -62,7 +62,6 @@ def main():
             'About': "# This is a header. This is an *extremely* cool app!"
         }
     )
-    st.text("Hello World 2")
 
     start_app()
     app = MultiPage()
@@ -76,8 +75,6 @@ def main():
     app.add_app("Exploratory Data Analysis", eda)
     app.run()
 
-    logs = pd.read_csv("./res/logs.csv")
-    st.dataframe(logs.tail(10))
 
     ##
 
