@@ -1,4 +1,4 @@
-#Nyobain push
+#Nyobain push kedua
 print("Hello world")
 def main():
     ...
