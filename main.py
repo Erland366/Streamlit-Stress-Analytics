@@ -1,11 +1,9 @@
 import streamlit as st
 from multipage import save, MultiPage, start_app, clear_cache
 import pandas as pd
-# from src.page.hranalytics import hranalytics
+from src.page.logs import logs
 # from src.page.hranalyticsgraph import hranalyticsgraph
 # from src.page.model import model
-from PIL import Image
-import os
 
 def main():
     st.set_page_config(page_title="Stress Analytics", page_icon="📊", layout="wide",
@@ -17,8 +15,12 @@ def main():
         }
     )
     start_app()
+    app = MultiPage()
+    app.navbar_name = "Navigation"
+    app.next_page_button = "Next Page"
+    app.previous_page_button = "Previous Page"
+    app.add_app("Log Training", logs)
+    app.run()
 
-    logs = pd.read_csv("./res/logs.csv")
-    st.dataframe(logs.tail(10))
 if __name__ == "__main__":
     main()
