@@ -15,7 +15,7 @@ def home(prev_vars=0):
     st.title("Pengantar Sains Data Kelompok 8")
     st.header("Nama Anggota Kelompok")
     st.text("1. Erland Hilman Fuadi (195150200111045)")
-    st.text("2. Muhammad Furqony Sabillilhaq")
+    st.text("2. Muhammad Furqony Sabillilhaq (195150200111085)")
     st.image(Image.open("res/screencapture_kaggle.png"))
 
     save([start_index], "placeholder1", ["App2", "App3"])
