@@ -1,4 +1,5 @@
 #Nyobain push
+print("Hello world")
 def main():
     ...
     
