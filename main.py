@@ -7,6 +7,8 @@ from PIL import Image
 import os
 
 
+#Nyobain push kedua
+print("Hello world")
 def main():
     st.set_page_config(page_title="HR Analytics", page_icon="📊", layout="wide",
         initial_sidebar_state="expanded",
