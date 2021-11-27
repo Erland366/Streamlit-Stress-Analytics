@@ -1,11 +1,10 @@
 import streamlit as st
 from multipage import save, MultiPage, start_app, clear_cache
 import pandas as pd
-# from src.page.hranalytics import hranalytics
+from src.page.logs import logs
+from src.page.eda import eda
 # from src.page.hranalyticsgraph import hranalyticsgraph
 # from src.page.model import model
-from PIL import Image
-import os
 
 def questions():
     return [
@@ -65,6 +64,13 @@ def main():
     st.text("Hello World 2")
 
     start_app()
+    app = MultiPage()
+    app.navbar_name = "Navigation"
+    app.next_page_button = "Next Page"
+    app.previous_page_button = "Previous Page"
+    app.add_app("Log Training", logs)
+    app.add_app("Exploratory Data Analysis", eda)
+    app.run()
 
     logs = pd.read_csv("./res/logs.csv")
     st.dataframe(logs.tail(10))
