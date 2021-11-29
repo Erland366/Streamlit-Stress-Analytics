@@ -82,13 +82,16 @@ def survey(prev_vars):
     for i in range(0, len(Q), 2):
         col1, col2 = st.columns(2)
         with col1:
-            st.radio(f"{Q[i]}",(A))
+            answer_col_1 = st.radio(f"{Q[i]}",(A))
+            tmp.append(A[answer_col_1])
         with col2:
-            st.radio(f"{Q[i+1]}",(A))
+            answer_col_2 = st.radio(f"{Q[i+1]}",(A))
+            tmp.append(A[answer_col_2])
         # genre = st.radio(f"{i}",(A))
         # genre = st.radio(f"{i}",('Did not apply to me at all', 'Applied to me to some degree, or some of the time', 'Applied to me to a considerable degree, or a good part of the time', 'Applied to me very much, or most of the time'))
         # tmp.append(A[genre])
-    st.write(sum(tmp))
+    if st.button("Go!"):
+        st.write(sum(tmp))
     
     st.text("How we did our training and parameters")
     save([start_index], "placeholder1", ["App2", "App3"])

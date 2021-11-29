@@ -30,6 +30,9 @@ def eda(prev_vars):
             with col2:
                 with st.expander("See data describe"):
                     st.dataframe(data.describe(), height=250)
+        with st.container():
+            with st.expander():
+                st.write("Test")
     save([start_index], "placeholder1", ["App2", "App3"])
 
 @st.cache
