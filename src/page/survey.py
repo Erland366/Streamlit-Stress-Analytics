@@ -63,6 +63,40 @@ def check_category(i):
     elif i in DASS_keys["Stress"]:
         return "Stress"
 
+def tipi():
+    return [
+        'Extraverted, enthusiastic',
+        'Critical, quarrelsome.',
+        'Dependable, self-disciplined.', 
+        'Anxious, easily upset.',
+        'Open to new experiences, complex.',
+        'Reserved, quiet.',
+        'Sympathetic, warm. ',
+        'Disorganized, careless.',
+        'Calm, emotionally stable.',
+        'Conventional, uncreative.' 
+    ]
+
+def vcl():
+    return[
+        'boat',
+        'incoherent',
+        'pallid',
+        'robot',
+        'audible',
+        'cuiovocal',
+        'paucity',
+        'epistemology',
+        'florted',
+        'decide',
+        'pastiche',
+        'verdid',
+        'abysmal',
+        'lucid',
+        'betray',
+        'funny'
+    ]
+
 def survey(prev_vars):
     if prev_vars != None:
         start_index = prev_vars
@@ -75,8 +109,9 @@ def survey(prev_vars):
 
 
 
-    Q = []
     Q = questions()
+    Q2 = tipi()
+    VCL = vcl()
 
 
     A = {
@@ -89,6 +124,24 @@ def survey(prev_vars):
     tmp_depression = []
     tmp_anxiety = []
     tmp_stress = []
+    A2 = {
+        "Disagree strongly" : 1,
+        "Disagree moderately" : 2,
+        "Disagree a litte" : 3,
+        "Neither agree or disagree" : 4,
+        "Agree a litte" : 5,
+        "Agree moderately" : 6,
+        "Agree strongly" : 7
+    }
+
+    A3 = {
+        "Yes" : 1,
+        "No" : 0
+    }
+
+    tmp = []
+
+    st.subheader("Section 1")
 
     for i in range(0, len(Q), 2):
         col1, col2 = st.columns(2)
@@ -118,5 +171,25 @@ def survey(prev_vars):
         st.write(f" Score Stress → {sum(tmp_stress)}")
         st.write(f" Score Depression → {sum(tmp_depression)}")
     
-    st.text("How we did our training and parameters")
+
+    st.subheader("Section 2")
+    for i in range(0, len(Q2), 2):
+        col1, col2 = st.columns(2)
+        with col1:
+            st.radio(f"{Q2[i]}",(A2))
+        with col2:
+            st.radio(f"{Q2[i+1]}",(A2))
+    
+    st.subheader("Section 2")
+    st.caption("Do you understand these words?")
+    for i in range(0, len(VCL), 2):
+        col1, col2 = st.columns(2)
+        with col1:
+            st.radio(f"{VCL[i]}",(A3))
+        with col2:
+            st.radio(f"{VCL[i+1]}",(A3))
+    
+
+    st.header
+    # st.text("How we did our training and parameters")
     save([start_index], "placeholder1", ["App2", "App3"])
