@@ -56,11 +56,11 @@ def check_category(i):
     DASS_keys = {'Depression': [3, 5, 10, 13, 16, 17, 21, 24, 26, 31, 34, 37, 38, 42],
             'Anxiety': [2, 4, 7, 9, 15, 19, 20, 23, 25, 28, 30, 36, 40, 41],
             'Stress': [1, 6, 8, 11, 12, 14, 18, 22, 27, 29, 32, 33, 35, 39]}
-    if i in DASS_keys["Depression"]:
+    if i+1 in DASS_keys["Depression"]:
         return "Depression"
-    elif i in DASS_keys["Anxiety"]:
+    elif i+1 in DASS_keys["Anxiety"]:
         return "Anxiety"
-    elif i in DASS_keys["Stress"]:
+    elif i+1 in DASS_keys["Stress"]:
         return "Stress"
 
 def tipi():
@@ -156,7 +156,7 @@ def survey(prev_vars):
                 tmp_stress.append(A[answer_col_1])
         with col2:
             answer_col_2 = st.radio(f"{Q[i+1]}",(A))
-            category = check_category(i)
+            category = check_category(i+1)
             if category == "Depression":
                 tmp_depression.append(A[answer_col_2])
             if category == "Anxiety":
@@ -171,24 +171,55 @@ def survey(prev_vars):
         st.write(f" Score Stress → {sum(tmp_stress)}")
         st.write(f" Score Depression → {sum(tmp_depression)}")
     
+    tipi2 = []
 
     st.subheader("Section 2")
     for i in range(0, len(Q2), 2):
         col1, col2 = st.columns(2)
         with col1:
-            st.radio(f"{Q2[i]}",(A2))
+            a = st.radio(f"{Q2[i]}",(A2))
+
+            tipi2.append(A2[a])
         with col2:
-            st.radio(f"{Q2[i+1]}",(A2))
+            b = st.radio(f"{Q2[i+1]}",(A2))
+            tipi2.append(A2[b])
+
+    if st.button("Tipi Scores!"):
+        st.write(f" TIPI Scores → {sum(tipi2)}")
     
+    
+    vcl2 = []
     st.subheader("Section 2")
     st.caption("Do you understand these words?")
+    flip = [5, 8, 11]
     for i in range(0, len(VCL), 2):
         col1, col2 = st.columns(2)
         with col1:
-            st.radio(f"{VCL[i]}",(A3))
+            a = st.radio(f"{VCL[i]}",(A3))
+            if (i in flip):
+                if (a == "Yes"):
+                    vcl2.append(0)
+                else:
+                    vcl2.append(1)
+            else:
+                if (a == "No"):
+                    vcl2.append(0)
+                else:
+                    vcl2.append(1)
         with col2:
-            st.radio(f"{VCL[i+1]}",(A3))
-    
+            b = st.radio(f"{VCL[i+1]}",(A3))
+            if (i+1 in flip):
+                if (b == "Yes"):
+                    vcl2.append(0)
+                else:
+                    vcl2.append(1)
+            else:
+                if (b == "No"):
+                    vcl2.append(0)
+                else:
+                    vcl2.append(1)
+    if st.button("VCL Scores!"):
+        st.write(f" VCL Scores → {sum(vcl2)}")
 
     st.header
     # st.text("How we did our training and parameters")
