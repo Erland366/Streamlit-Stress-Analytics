@@ -5,6 +5,7 @@ import io
 import time
 from PIL import Image
 from multipage import save, MultiPage, start_app, clear_cache
+import joblib
 
 def eda(prev_vars):
     if prev_vars != None:
@@ -31,8 +32,17 @@ def eda(prev_vars):
                 with st.expander("See data describe"):
                     st.dataframe(data.describe(), height=250)
         with st.container():
-            with st.expander():
-                st.write("Test")
+            with st.expander("See Value Counts Per Category"):
+                col1, col2, col3 = st.columns(3)
+                with col1:
+                    data_vc_str = joblib.load("./res/value_counts_str.pkl")
+                    st.dataframe(data_vc_str, width=450)
+                with col2:
+                    data_vc_anx = joblib.load("./res/value_counts_anx.pkl")
+                    st.dataframe(data_vc_anx, width=450)
+                with col3:
+                    data_vc_dep = joblib.load("./res/value_counts_dep.pkl")
+                    st.dataframe(data_vc_dep, width=450)
     save([start_index], "placeholder1", ["App2", "App3"])
 
 @st.cache

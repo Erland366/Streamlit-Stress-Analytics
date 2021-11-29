@@ -50,3 +50,10 @@ Tue Nov 23 06:08:00 2021,06:08:00,06:08:00,DecisionTreeClassifier,1.0,1.0,"{'cri
 Tue Nov 23 06:09:14 2021,06:08:00,06:09:14,RandomForestClassifier,1.0,1.0,"{'max_depth': None, 'n_estimators': 500}",Data Stress,"{'n_estimators': [500], 'max_depth': [None]}"
 Tue Nov 23 06:16:19 2021,06:09:14,06:16:19,GradientBoostingClassifier,1.0,1.0,"{'learning_rate': 0.2, 'n_estimators': 10}",Data Stress,"{'learning_rate': [0.2, 0.5, 0.1], 'n_estimators': array([10, 20, 30, 40])}"
 Tue Nov 23 06:16:27 2021,06:16:19,06:16:27,XGBClassifier,1.0,1.0,{'n_estimators': 5},Data Stress,"{'n_estimators': [5, 10]}"
+Mon Nov 29 20:26:17 2021,20:24:32,20:26:15,KNeighborsClassifier,0.7173971514877131,0.7144988066825776,{'n_neighbors': 43},Data Anxious,"{'n_neighbors': array([30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46,
+       47, 48, 49])}"
+Mon Nov 29 20:26:20 2021,20:26:17,20:26:20,MultinomialNB,0.7454501733005781,0.7437350835322196,{'alpha': 3},Data Anxious,"{'alpha': array([1, 2, 3, 4, 5])}"
+Mon Nov 29 20:26:20 2021,20:26:20,20:26:20,DecisionTreeClassifier,0.5529704040711411,0.5656324582338902,"{'criterion': 'gini', 'max_depth': 4}",Data Anxious,"{'criterion': ['gini'], 'max_depth': [4]}"
+Mon Nov 29 20:27:56 2021,20:26:20,20:27:55,RandomForestClassifier,0.8220442788543607,0.8383054892601431,"{'max_depth': None, 'n_estimators': 500}",Data Anxious,"{'n_estimators': [500], 'max_depth': [None]}"
+Mon Nov 29 20:34:38 2021,20:27:56,20:34:38,GradientBoostingClassifier,0.8478072096009264,0.8636634844868735,"{'learning_rate': 0.5, 'n_estimators': 40}",Data Anxious,"{'learning_rate': [0.2, 0.5, 0.1], 'n_estimators': array([10, 20, 30, 40])}"
+Mon Nov 29 20:34:50 2021,20:34:38,20:34:50,XGBClassifier,0.762060804876661,0.7607398568019093,{'n_estimators': 10},Data Anxious,"{'n_estimators': [5, 10]}"
