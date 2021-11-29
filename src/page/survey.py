@@ -52,7 +52,16 @@ def questions():
        	'I experienced trembling (eg, in the hands).',
        	'I found it difficult to work up the initiative to do things.'
     ]
-
+def check_category(i):
+    DASS_keys = {'Depression': [3, 5, 10, 13, 16, 17, 21, 24, 26, 31, 34, 37, 38, 42],
+            'Anxiety': [2, 4, 7, 9, 15, 19, 20, 23, 25, 28, 30, 36, 40, 41],
+            'Stress': [1, 6, 8, 11, 12, 14, 18, 22, 27, 29, 32, 33, 35, 39]}
+    if i in DASS_keys["Depression"]:
+        return "Depression"
+    elif i in DASS_keys["Anxiety"]:
+        return "Anxiety"
+    elif i in DASS_keys["Stress"]:
+        return "Stress"
 
 def survey(prev_vars):
     if prev_vars != None:
@@ -77,21 +86,37 @@ def survey(prev_vars):
         'Applied to me very much, or most of the time' : 4
     }
 
-    tmp = []
+    tmp_depression = []
+    tmp_anxiety = []
+    tmp_stress = []
 
     for i in range(0, len(Q), 2):
         col1, col2 = st.columns(2)
         with col1:
             answer_col_1 = st.radio(f"{Q[i]}",(A))
-            tmp.append(A[answer_col_1])
+            category = check_category(i)
+            if category == "Depression":
+                tmp_depression.append(A[answer_col_1])
+            if category == "Anxiety":
+                tmp_anxiety.append(A[answer_col_1])
+            if category == "Stress":
+                tmp_stress.append(A[answer_col_1])
         with col2:
             answer_col_2 = st.radio(f"{Q[i+1]}",(A))
-            tmp.append(A[answer_col_2])
+            category = check_category(i)
+            if category == "Depression":
+                tmp_depression.append(A[answer_col_2])
+            if category == "Anxiety":
+                tmp_anxiety.append(A[answer_col_2])
+            if category == "Stress":
+                tmp_stress.append(A[answer_col_2])
         # genre = st.radio(f"{i}",(A))
         # genre = st.radio(f"{i}",('Did not apply to me at all', 'Applied to me to some degree, or some of the time', 'Applied to me to a considerable degree, or a good part of the time', 'Applied to me very much, or most of the time'))
         # tmp.append(A[genre])
     if st.button("Go!"):
-        st.write(sum(tmp))
+        st.write(f" Score Anxiety → {sum(tmp_anxiety)}")
+        st.write(f" Score Stress → {sum(tmp_stress)}")
+        st.write(f" Score Depression → {sum(tmp_depression)}")
     
     st.text("How we did our training and parameters")
     save([start_index], "placeholder1", ["App2", "App3"])
