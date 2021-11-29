@@ -1,3 +1,4 @@
+import joblib
 import streamlit as st
 import os
 import pandas as pd
@@ -6,6 +7,131 @@ import time
 from PIL import Image
 from multipage import save, MultiPage, start_app, clear_cache
 
+def anxious_columns():
+    return ['Q2A',
+        'Q4A',
+        'Q7A',
+        'Q9A',
+        'Q15A',
+        'Q19A',
+        'Q20A',
+        'Q23A',
+        'Q25A',
+        'Q28A',
+        'Q30A',
+        'Q36A',
+        'Q40A',
+        'Q41A',
+        'TIPI1',
+        'TIPI2',
+        'TIPI3',
+        'TIPI4',
+        'TIPI5',
+        'TIPI6',
+        'TIPI7',
+        'TIPI8',
+        'TIPI9',
+        'TIPI10',
+        'VCL1',
+        'VCL2',
+        'VCL3',
+        'VCL4',
+        'VCL5',
+        'VCL6',
+        'VCL7',
+        'VCL8',
+        'VCL9',
+        'VCL10',
+        'VCL11',
+        'VCL12',
+        'VCL13',
+        'VCL14',
+        'VCL15',
+        'VCL16']
+
+def stress_columns():
+    return ['Q1A',
+        'Q6A',
+        'Q8A',
+        'Q11A',
+        'Q12A',
+        'Q14A',
+        'Q18A',
+        'Q22A',
+        'Q27A',
+        'Q29A',
+        'Q32A',
+        'Q33A',
+        'Q35A',
+        'Q39A',
+        'TIPI1',
+        'TIPI2',
+        'TIPI3',
+        'TIPI4',
+        'TIPI5',
+        'TIPI6',
+        'TIPI7',
+        'TIPI8',
+        'TIPI9',
+        'TIPI10',
+        'VCL1',
+        'VCL2',
+        'VCL3',
+        'VCL4',
+        'VCL5',
+        'VCL6',
+        'VCL7',
+        'VCL8',
+        'VCL9',
+        'VCL10',
+        'VCL11',
+        'VCL12',
+        'VCL13',
+        'VCL14',
+        'VCL15',
+        'VCL16']
+
+def depression_columns():
+    return ['Q3A',
+        'Q5A',
+        'Q10A',
+        'Q13A',
+        'Q16A',
+        'Q17A',
+        'Q21A',
+        'Q24A',
+        'Q26A',
+        'Q31A',
+        'Q34A',
+        'Q37A',
+        'Q38A',
+        'Q42A',
+        'TIPI1',
+        'TIPI2',
+        'TIPI3',
+        'TIPI4',
+        'TIPI5',
+        'TIPI6',
+        'TIPI7',
+        'TIPI8',
+        'TIPI9',
+        'TIPI10',
+        'VCL1',
+        'VCL2',
+        'VCL3',
+        'VCL4',
+        'VCL5',
+        'VCL6',
+        'VCL7',
+        'VCL8',
+        'VCL9',
+        'VCL10',
+        'VCL11',
+        'VCL12',
+        'VCL13',
+        'VCL14',
+        'VCL15',
+        'VCL16']
 
 def questions():
     return [
@@ -112,13 +238,15 @@ def survey(prev_vars):
     Q = questions()
     Q2 = tipi()
     VCL = vcl()
-
+    anx_columns = anxious_columns()
+    dep_columns = depression_columns()
+    str_columns = stress_columns()
 
     A = {
-        'Did not apply to me at all' : 1,
-        'Applied to me to some degree, or some of the time' : 2,
-        'Applied to me to a considerable degree, or a good part of the time': 3,
-        'Applied to me very much, or most of the time' : 4
+        'Did not apply to me at all' : 0,
+        'Applied to me to some degree, or some of the time' : 1,
+        'Applied to me to a considerable degree, or a good part of the time': 2,
+        'Applied to me very much, or most of the time' : 3
     }
 
     tmp_depression = []
@@ -220,7 +348,18 @@ def survey(prev_vars):
                     vcl2.append(1)
     if st.button("VCL Scores!"):
         st.write(f" VCL Scores → {sum(vcl2)}")
+    if st.button("Go Predict!"):
+        model_anxious = joblib.load("./res/model_anxious.pkl")
+        model_depression = joblib.load("./res/model_depression.pkl")
+        model_stress = joblib.load("./res/model_stress.pkl")
 
+        result_anxious = model_anxious.predict(pd.DataFrame({y : x for (x,y) in zip(tmp_anxiety + tipi2 + vcl2, anx_columns)}, index=[0]))
+        result_depression = model_depression.predict(pd.DataFrame({y : x for (x,y) in zip(tmp_depression + tipi2 + vcl2, dep_columns)}, index=[0]))
+        result_stress = model_stress.predict(pd.DataFrame({y : x for (x,y) in zip(tmp_stress + tipi2 + vcl2, str_columns)}, index=[0]))
+
+        st.write(f"You are → {result_anxious[0]}")
+        st.write(f"You are → {result_depression[0]}")
+        st.write(f"You are → {result_stress[0]}")
     st.header
     # st.text("How we did our training and parameters")
     save([start_index], "placeholder1", ["App2", "App3"])
