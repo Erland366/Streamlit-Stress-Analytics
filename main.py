@@ -28,7 +28,7 @@ def main():
     app.add_app("Home", home)
     app.add_app("Log Training", logs)
     app.add_app("Exploratory Data Analysis", eda)
-    app.add_app("Survey", survey)
+    app.add_app("Demo", survey)
     app.run()
 
 

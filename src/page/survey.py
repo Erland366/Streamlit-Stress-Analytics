@@ -228,10 +228,8 @@ def survey(prev_vars):
         start_index = prev_vars
     else:
         start_index = 1 
-    st.header("Coba Tes Apakah Kamu Stres atau Depresi atau Gerogi!")
-
-    age = st.slider('How old are you?', 0, 130, 25)
-    st.write("I'm ", age, 'years old')
+    # st.header("Coba Tes Apakah Kamu Stres atau Depresi atau Gerogi!")
+    st.header("Lets find out your Depression, Stress, and Anxiety level!")
 
 
 
@@ -269,86 +267,115 @@ def survey(prev_vars):
 
     tmp = []
 
-    st.subheader("Section 1")
 
-    for i in range(0, len(Q), 2):
-        col1, col2 = st.columns(2)
-        with col1:
-            answer_col_1 = st.radio(f"{Q[i]}",(A))
-            category = check_category(i)
-            if category == "Depression":
-                tmp_depression.append(A[answer_col_1])
-            if category == "Anxiety":
-                tmp_anxiety.append(A[answer_col_1])
-            if category == "Stress":
-                tmp_stress.append(A[answer_col_1])
-        with col2:
-            answer_col_2 = st.radio(f"{Q[i+1]}",(A))
-            category = check_category(i+1)
-            if category == "Depression":
-                tmp_depression.append(A[answer_col_2])
-            if category == "Anxiety":
-                tmp_anxiety.append(A[answer_col_2])
-            if category == "Stress":
-                tmp_stress.append(A[answer_col_2])
+    with st.container():
+        with st.expander("Section 1 Questions"):
+            for i in range(0, len(Q), 2):
+                col1, col2 = st.columns(2)
+                with col1:
+                    answer_col_1 = st.radio(f"{Q[i]}",(A))
+                    category = check_category(i)
+                    if category == "Depression":
+                        tmp_depression.append(A[answer_col_1])
+                    if category == "Anxiety":
+                        tmp_anxiety.append(A[answer_col_1])
+                    if category == "Stress":
+                        tmp_stress.append(A[answer_col_1])
+                with col2:
+                    answer_col_2 = st.radio(f"{Q[i+1]}",(A))
+                    category = check_category(i+1)
+                    if category == "Depression":
+                        tmp_depression.append(A[answer_col_2])
+                    if category == "Anxiety":
+                        tmp_anxiety.append(A[answer_col_2])
+                    if category == "Stress":
+                        tmp_stress.append(A[answer_col_2])
+    
         # genre = st.radio(f"{i}",(A))
         # genre = st.radio(f"{i}",('Did not apply to me at all', 'Applied to me to some degree, or some of the time', 'Applied to me to a considerable degree, or a good part of the time', 'Applied to me very much, or most of the time'))
         # tmp.append(A[genre])
-    if st.button("Go!"):
-        st.write(f" Score Anxiety → {sum(tmp_anxiety)}")
-        st.write(f" Score Stress → {sum(tmp_stress)}")
-        st.write(f" Score Depression → {sum(tmp_depression)}")
+    # if st.button("Go!"):
+    #     st.write(f" Score Anxiety → {sum(tmp_anxiety)}")
+    #     st.write(f" Score Stress → {sum(tmp_stress)}")
+    #     st.write(f" Score Depression → {sum(tmp_depression)}")
     
     tipi2 = []
 
-    st.subheader("Section 2")
-    for i in range(0, len(Q2), 2):
-        col1, col2 = st.columns(2)
-        with col1:
-            a = st.radio(f"{Q2[i]}",(A2))
+    with st.container():
+        with st.expander("Section 2 Questions"):
+            for i in range(0, len(Q2), 2):
+                col1, col2 = st.columns(2)
+                with col1:
+                    a = st.radio(f"{Q2[i]}",(A2))
 
-            tipi2.append(A2[a])
-        with col2:
-            b = st.radio(f"{Q2[i+1]}",(A2))
-            tipi2.append(A2[b])
+                    tipi2.append(A2[a])
+                with col2:
+                    b = st.radio(f"{Q2[i+1]}",(A2))
+                    tipi2.append(A2[b])
 
-    if st.button("Tipi Scores!"):
-        st.write(f" TIPI Scores → {sum(tipi2)}")
+    # if st.button("Tipi Scores!"):
+    #     st.write(f" TIPI Scores → {sum(tipi2)}")
     
     
     vcl2 = []
-    st.subheader("Section 2")
-    st.caption("Do you understand these words?")
     flip = [5, 8, 11]
-    for i in range(0, len(VCL), 2):
-        col1, col2 = st.columns(2)
-        with col1:
-            a = st.radio(f"{VCL[i]}",(A3))
-            if (i in flip):
-                if (a == "Yes"):
-                    vcl2.append(0)
-                else:
-                    vcl2.append(1)
-            else:
-                if (a == "No"):
-                    vcl2.append(0)
-                else:
-                    vcl2.append(1)
-        with col2:
-            b = st.radio(f"{VCL[i+1]}",(A3))
-            if (i+1 in flip):
-                if (b == "Yes"):
-                    vcl2.append(0)
-                else:
-                    vcl2.append(1)
-            else:
-                if (b == "No"):
-                    vcl2.append(0)
-                else:
-                    vcl2.append(1)
-    if st.button("VCL Scores!"):
-        st.write(f" VCL Scores → {sum(vcl2)}")
-    if st.button("Go Predict!"):
+
+    with st.container():
+        with st.expander("Section 3 Questions"):
+            st.caption("Do you understand these words?")
+            for i in range(0, len(VCL), 4):
+                col1, col2, col3, col4 = st.columns(4)
+                with col1:
+                    a = st.radio(f"{VCL[i]}",(A3))
+                    if (i in flip):
+                        if (a == "Yes"):
+                            vcl2.append(0)
+                        else:
+                            vcl2.append(1)
+                    else:
+                        if (a == "No"):
+                            vcl2.append(0)
+                        else:
+                            vcl2.append(1)
+                with col2:
+                    b = st.radio(f"{VCL[i+1]}",(A3))
+                    if (i+1 in flip):
+                        if (b == "Yes"):
+                            vcl2.append(0)
+                        else:
+                            vcl2.append(1)
+                    else:
+                        if (b == "No"):
+                            vcl2.append(0)
+                        else:
+                            vcl2.append(1)
+                with col3:
+                    c = st.radio(f"{VCL[i+2]}",(A3))
+                    if (i+2 in flip):
+                        if (c == "Yes"):
+                            vcl2.append(0)
+                        else:
+                            vcl2.append(1)
+                    else:
+                        if (c == "No"):
+                            vcl2.append(0)
+                        else:
+                            vcl2.append(1)
+                with col4:
+                    d = st.radio(f"{VCL[i+3]}",(A3))
+                    if (i+3 in flip):
+                        if (d == "Yes"):
+                            vcl2.append(0)
+                        else:
+                            vcl2.append(1)
+                    else:
+                        if (d == "No"):
+                            vcl2.append(0)
+                        else:
+                            vcl2.append(1)
+    # if st.button("VCL Scores!"):
+    #     st.write(f" VCL Scores → {sum(vcl2)}")
+    if st.button("Predict"):
         model_anxious = joblib.load("./res/model_anxious.pkl")
         model_depression = joblib.load("./res/model_depression.pkl")
         model_stress = joblib.load("./res/model_stress.pkl")
@@ -357,9 +384,9 @@ def survey(prev_vars):
         result_depression = model_depression.predict(pd.DataFrame({y : x for (x,y) in zip(tmp_depression + tipi2 + vcl2, dep_columns)}, index=[0]))
         result_stress = model_stress.predict(pd.DataFrame({y : x for (x,y) in zip(tmp_stress + tipi2 + vcl2, str_columns)}, index=[0]))
 
-        st.write(f"You are → {result_anxious[0]}")
-        st.write(f"You are → {result_depression[0]}")
-        st.write(f"You are → {result_stress[0]}")
+        st.write(f"Anxiety level    → {result_anxious[0]}")
+        st.write(f"Depression level → {result_depression[0]}")
+        st.write(f"Stress level     → {result_stress[0]}")
     st.header
     # st.text("How we did our training and parameters")
     save([start_index], "placeholder1", ["App2", "App3"])
